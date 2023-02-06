@@ -1,0 +1,105 @@
+"use strict";
+
+async function onlyCMD({ global, api, event, message, Config, logger, Threads, Users }) {
+    try {
+        const { threadID, senderID, isGroup } = event;
+        const { ADMIN, EXCEPTION, DEVMODE, personalOnly, adminOnly, boxOnly, listBoxOnly, allQTVOnly, LANGUAGE_SCRIPTS } = Config;
+
+        const prefix = (await Threads.getData(threadID)).prefix || Config['PREFIX'];
+        const listAdmin = senderID != ADMIN.find(item => item == senderID);
+        if (event.body.indexOf(prefix) == 0) {
+            let command, args, body, role;
+            command = event.body.slice(prefix.length, event.body.length).split(' ')[0];
+            args = event.body
+                .slice(prefix.length, event.body.length)
+                .split(' ')
+                .slice(1);
+            body = event.body.slice(
+                prefix.length + command.length + 1,
+                event.body.length
+            );
+            if (command.includes('\n')) {
+                args = [
+                    command.slice(command.indexOf('\n') + 1, command.length),
+                    ...args
+                ];
+                command = command.slice(0, command.indexOf('\n'));
+            }
+            ///---------------------------------/    Do not reply personally    /----------------------------------///
+            if (personalOnly == true) {
+                if (isGroup == false && listAdmin)
+                    return message.reply('»[ADMIN ONLY] Vui lòng liên hệ admin để có thể trò chuyện trực tiếp với bot.');
+            }
+            ///---------------------------------/    Do not reply ADMIN    /--------------------------------------///
+            if (adminOnly == true) {
+                if (isGroup && listAdmin)
+                    return message.reply('[QTV ONLY]» Bot đang ở chế độ chỉ quản trị viên mới có thể sử dụng.');
+            }
+            ///------------------------------/    Do not reply not BOX only    /----------------------------------///
+            let listTVBOX = event.participantIDs.some(item => item == senderID);
+            if (isGroup && (threadID == boxOnly)) {
+                const nameBox = (await Threads.getData(boxOnly)).name;
+                if (listAdmin && listTVBOX)
+                    return message.reply(
+                        `[BOX ONLY]» Bot đang ở chế độ chỉ box ${nameBox} (${boxOnly}) mới có thể sử dụng.`
+                    );
+            }
+            ///-----------------------------/    Do not reply not LIST BOX only    /--------------------------------///
+            let allListBoxOnly = listBoxOnly.threadID.find(item => item == threadID);
+            let idBoxOnly = listBoxOnly.threadID;
+            var msg = [],
+                pushID = [],
+                i = 1;
+            if (isGroup & (listBoxOnly.status == true)) {
+                if (global.scripts.findIndex(i => i.config.name == command) !== -1) {
+                    const run = global.scripts.find(i => i.config.name == command);
+                    role = '0/1'; //Role đặc biệt, ko bị ban + scripts -> Call ADMIN
+                    if (run.config.role == '0/1') {
+                        try {
+                            return run.onMessage({ event, api, global, Config, Threads, Users, args });
+                        } catch (err) {
+                            return message.send(err);
+                        }
+                    }
+                }
+
+                if (listAdmin && threadID != allListBoxOnly) {
+                    for (let idbox of idBoxOnly) {
+                        const nameBox = (await Threads.getData(idbox)).name;
+                        msg += `${i++}/ ${nameBox}(${idbox})\n`;
+                        pushID.push(nameBox);
+                    }
+                    return message.reply(pushID.length != 0 ? message.reply(
+                        `❎Bot đang ở chế độ chỉ các box bên dưới mới có thể sử dụng\n\n${msg}`
+                    ) : `» Hiện tại nhóm nào được duyệt mới có thể sử dụng bot!\n» Vui lòng liên hệ admin để có thể sử dụng.`);
+                }
+            }
+
+            if (threadID != senderID && isGroup && threadID != 0) {
+                ///----------------------------/    Do not reply QTV / check QTV BOX only    /-----------------------------///
+                const dataThread = await Threads.getData(threadID);
+                var idAD = [];
+                var threadInfo = await api.getThreadInfo(threadID);
+                var getAdminIDs = threadInfo.adminIDs;
+                for (let i = 0; i < getAdminIDs.length; i++) {
+                    idAD.push(getAdminIDs[i].id);
+                }
+                const checkQTV = idAD.find(item => item == senderID);
+                ///----------------------------/    check QTV BOX only    /-----------------------------///
+                if (dataThread.data.onlyQTV == true && listAdmin && !checkQTV)
+                    return message.reply('[QTV BOX]» Đang bật chế độ chỉ quản trị viên box chat mới có thể sử dụng bot.');
+                ///----------------------------/    check QTV ALL BOX only    /-----------------------------///
+                if (allQTVOnly == true && listAdmin && !checkQTV) {
+                    return message.reply('[QTV ALL BOX ONLY]» Đang bật chế độ chỉ quản trị viên toàn bộ nhóm chat mới có thể sử dụng bot.');
+                }
+            }
+        }
+
+    } catch (e) {
+        logger.error(e.stack, "HANDLE ONLY COMMAND");
+    }
+}
+
+module.exports = {
+    onlyCMD
+}

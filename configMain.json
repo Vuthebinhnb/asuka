@@ -1,0 +1,40 @@
+{
+    "NAME": "Noname : D",
+    "PREFIX": ",",
+    "ADMIN": [
+        "1628097188",
+        "100038379006171"
+    ],
+    "EXCEPTION": [],
+    "DATABASE": {
+        "type": "local",
+        "uriMongodb": "mongodb+srv://admin:admin@cluster0.jhwry.mongodb.net/Lawer_Oficial?retryWrites=true&w=majority",
+        "notes": "Choose *local* or *mongodb*"
+    },
+    "DEVMODE": true,
+    "AUTORESTART": true,
+    "LANGUAGE_SCRIPTS": "vi_VN.loli",
+    "DATA_APPSTATE": "fbstate",
+    "LOGIN_EMAIL_PASSWORD": {
+        "EMAIL": "",
+        "PASSWORD": "",
+        "OTPKEY": {
+            "status": false,
+            "key": ""
+        },
+        "FCA": {
+            "logLevel": "silent",
+            "forceLogin": true,
+            "userAgent": "Special Agent v 1.0.16"
+        }
+    },
+    "FCA": {
+        "forceLogin": true,
+        "listenEvents": true,
+        "logLevel": "error",
+        "autoReconnect": true,
+        "updatePresence": true,
+        "selfListen": true,
+        "userAgent": "Special Agent v 1.0.16"
+    }
+}

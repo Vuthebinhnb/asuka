@@ -1,0 +1,33 @@
+config: {
+  [NAME] = "vi_VN",
+  [TYPE] = "language scripts",
+  [AUTHOR] = "LawerTeam",
+  [VERSION] = "1.0.0"
+}
+index: { 
+  [HOST_UPTIME] = "Đã mở server uptime, port: <1>",
+  [FBSTATE_NO] = "Không tìm thấy file <1>.json !!!",
+  [FBSTATE_YES] = "Tìm thấy file <1>.json -> Tiến hành đăng nhập...",
+  [LOGIN_YES] = "Đăng nhập thành công.",
+  [NEWFBSTATE_YES] = "Đã làm mới <1>.json !!!",
+  [DATABASE_READ_YES] = "Đã đọc dữ liệu của <1> nhóm và <2> người dùng.",
+  [INFO_DONE] = "Bắt đầu nhận tin.",
+  [HANDLER_ERROR] = "Đã xảy ra lỗi handlerEvent: <1>",
+  [DATABASE_THREAD_NEW] = "Nhóm Mới: <1> | <2>",
+  [DATABASE_USER_NEW] = "Người Dùng Mới: <1> | <2>",
+  [COMMAND_NO_SCRIPTS] = "Sai lệnh. Dùng <1><2> để xem các lệnh đang hoạt động.",
+  [COMMAND_NO_FIND] = "Không tìm thấy lệnh: '<1>'",
+  [COMMAND_NO_PERMISSIONS] = "Bạn không có quyền để sử dụng lệnh '<1>', vì bạn là '<2>' nên lệnh này không thể khởi động.",
+  [CHOOSE_DATABASE] = "Bạn chọn nơi lưu trữ CSDL là mongosee.",
+  [CHOOSE_DATABASE_LOCAL] = "Bạn chọn nơi lưu trữ CSDL là local.",
+  [CONNECTION_DATABASE] = "Đang kết nối CSDL mongodb",
+  [CONNECTION_DATABASE_SUCCESS] = "Kết nối cơ sở dữ liệu Mongodb thành công.",
+  [CONNECTION_DATABASE_FAILED] = "Kết nối cơ sở dữ liệu Mongodb thất bại với lỗi: <1>",
+  [ROLE_0] = "Người dùng thường",
+  [ROLE_1] = "Quản trị viên",
+  [ROLE_2] = "Người điều hành bot",
+  [ROLE_3] = "Người hỗ trợ, điều hành bot",
+  [ROLE_0_1] = "Hỗ trợ đặc biệt",
+  [COMMAND_LOAD_FILE] = "Tải thành công <1> lệnh command.",
+  [EVENT_LOAD_FILE] = "Tải thành công <1> lệnh event."
+}

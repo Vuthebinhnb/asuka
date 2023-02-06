@@ -1,0 +1,33 @@
+config: {
+  [NAME] = "en_US",
+  [TYPE] = "language scripts",
+  [AUTHOR] = "LawerTeam",
+  [VERSION] = "1.0.0"
+}
+index: { 
+  [HOST_UPTIME] = "LawerBot is running, server is listening on port <1>",
+  [FBSTATE_NO] = "File <1>.json not found !!!",
+  [FBSTATE_YES] = "File <1>.json found -> Proceed to login.",
+  [LOGIN_YES] = "Logged in successfully.",
+  [NEWFBSTATE_YES] = "Refreshed <1>.json !!!",
+  [DATABASE_READ_YES] = "Read data of <1> group and <2> user.",
+  [INFO_DONE] = "Start receiving messages.",
+  [HANDLER_ERROR] = "An error handlerEvent: <1>",
+  [DATABASE_THREAD_NEW] = "New Group: <1> | <2>",
+  [DATABASE_USER_NEW] = "New User: <1> | <2>",
+  [COMMAND_NO_SCRIPTS] = "Wrong order. Use <1><2> to see active commands.",
+  [COMMAND_NO_FIND] = "Kcommand: '<1>' not found on bot data!",
+  [COMMAND_NO_PERMISSIONS] = "You do not have permission to use the command '<1>', because you are '<2>' this command cannot be started.",
+  [CHOOSE_DATABASE] = "You choose the place to store the database as mongoose.",
+  [CHOOSE_DATABASE_LOCAL] = "You choose the place to store the database as local.",
+  [CONNECTION_DATABASE] = "Connecting to database mongodb",
+  [CONNECTION_DATABASE_SUCCESS] = "Mongodb database connection successful.",
+  [CONNECTION_DATABASE_FAILED] = "Mongodb database connection failed with error: <1>"",
+  [ROLE_0] = "Normal User",
+  [ROLE_1] = "Administrator",
+  [ROLE_2] = "Bot operator",
+  [ROLE_3] = "Bot supporter and operator",
+  [ROLE_0_1] = "Special Support",
+  [COMMAND_LOAD_FILE] = "Loading success <1> command.",
+  [EVENT_LOAD_FILE] = "Loading success <1> event command.",
+}
